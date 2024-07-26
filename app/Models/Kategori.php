@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
     use HasFactory;
-
-        public function film(){
+    protected $table = 'kategoris';
+        public function Film(){
         return $this->hasMany(Film::class, 'id_kategori');
     }
 }

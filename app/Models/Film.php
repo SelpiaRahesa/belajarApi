@@ -20,7 +20,7 @@ class Film extends Model
 
     public function kategoris()
     {
-        return $this->belongsTo(Kategori::class , 'id_kategori');
+        return $this->belongsTo(Kategori::class , 'id_kategoris');
     }
 
     public function genre()

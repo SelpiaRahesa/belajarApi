@@ -24,6 +24,7 @@ Route::resource('kategori', KategoriController::class);
 Route::resource('genre', GenreController::class);
 Route::resource('aktor', AktorController::class);
 Route::resource('film', FilmController::class);
+
 });
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);

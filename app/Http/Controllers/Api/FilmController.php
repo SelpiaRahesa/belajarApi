@@ -1,6 +1,7 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Film;
 use Illuminate\Http\Request;
 use Storage;
@@ -10,7 +11,7 @@ class FilmController extends Controller
 {
     public function index()
     {
-        $film = Film::with(['genre', 'actor'])->get();
+        $film = Film::with(['genre', 'aktor'])->get();
         return response()->json([
             'success' => true,
             'message' => 'Data Film',
@@ -23,12 +24,12 @@ class FilmController extends Controller
         $validator = Validator::make($request->all(), [
             'judul' => 'required|string|unique:film',
             'slug' => 'required|string',
-            'deskripsi' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'url_vidio' => 'required|string',
-            'id_kategoris' => 'required|exists:kategoris,id',
+            'deskripsi' => 'required|string',
+            'url_video' => 'required|string',
+            'id_kategori' => 'required|exists:kategoris,id',
             'genre' => 'required|array',
-            'actor' => 'required|array',
+            'aktor' => 'required|array',
         ]);
 
         if ($validator->fails()) {
@@ -44,15 +45,16 @@ class FilmController extends Controller
 
             $film = Film::create([
                 'judul' => $request->judul,
-                'deskripsi' => $request->deskripsi,
-                'foto' => $path,
-                'url_vidio' => $request->url_vidio,
-                'id_kategoris' => $request->id_kategoris,
                 'slug' => $request->slug,
+                'foto' => $path,
+                'deskripsi' => $request->deskripsi,
+                'url_video' => $request->url_video,
+                'id_kategori' => $request->id_kategoris,
+
             ]);
 
             $film->genre()->sync($request->genre);
-            $film->actor()->sync($request->actor);
+            $film->aktor()->sync($request->aktor);
 
             return response()->json([
                 'success' => true,
@@ -93,12 +95,12 @@ class FilmController extends Controller
         $validator = Validator::make($request->all(), [
             'judul' => 'required|string|film,judul,' . $id,
             'slug' => 'required|string,' . $id,
-            'deskripsi' => 'required|string',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'url_vidio' => 'required|string',
-            'id_kategoris' => 'required|exists:kategoris,id',
+            'deskripsi' => 'required|string',
+            'url_video' => 'required|string',
+            'id_kategori' => 'required|exists:kategori,id',
             'genre' => 'required|array',
-            'actor' => 'required|array',
+            'aktor' => 'required|array',
         ]);
 
         if ($validator->fails()) {
