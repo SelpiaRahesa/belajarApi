@@ -18,14 +18,8 @@ return new class extends Migration
             $table->string('foto');
             $table->text('deskripsi');
             $table->string('url_video');
-            $table->unsignedBigInteger('id_kategori')
-
-            ;
-<<<<<<< HEAD
+            $table->unsignedBigInteger('id_kategori');
             $table->foreign('id_kategori')->references('id')->on('kategoris')->onDelete('cascade');
-=======
-            $table->foreign('id_kategori')->references('id')->on('kategori')->onDelete('cascade');
->>>>>>> e75bd766dabb6c37ea2c906b44fabf25ab339978
             $table->timestamps();
         });
         Schema::create('genre_film', function (Blueprint $table) {
